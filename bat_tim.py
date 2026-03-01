@@ -3,14 +3,19 @@
 import os 
 tm =  str(os.popen("upower -i /org/freedesktop/UPower/devices/battery_BAT0").read()).split()
 
-num = float(tm[65])
+if "charging" in tm:
+    str = "inf"
 
-if num > 6:
-    form = " m"
 else:
-    form = " h"
 
-str = str(num) + form
+    num = float(tm[65])
+
+    if num > 6:
+        form = " m"
+    else:
+        form = " h"
+
+    str = str(num) + form
 
 if __name__ == "__main__":
     output = {
@@ -18,8 +23,3 @@ if __name__ == "__main__":
         "class":"batt_time"
             }
     print(str)
-
-
-
-
-
